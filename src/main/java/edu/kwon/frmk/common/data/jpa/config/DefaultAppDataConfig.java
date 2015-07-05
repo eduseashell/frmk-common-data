@@ -3,7 +3,7 @@ package edu.kwon.frmk.common.data.jpa.config;
 import javax.persistence.EntityManagerFactory;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.dialect.PostgreSQLDialect;
+import org.hibernate.dialect.PostgresPlusDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -27,17 +27,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @version 0.0.1
  */
 @Configuration
-@EnableJpaRepositories
-@EnableTransactionManagement
-public class AppDataConfig {
+@EnableJpaRepositories("edu.kwon.frmk.common.data.jpa.repository")			// Package of annotated class is used, if not specify base package. repository-impl-postfix = (default) Impl
+@EnableTransactionManagement	// = <tx:annotation-driven />
+public class DefaultAppDataConfig {
 	
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource());
 		factory.setJpaVendorAdapter(jpaVendorAdapter());
-		factory.setPackagesToScan("edu.kwon.frmk.common.data.jpa.repository");	// TODO
-//		factory.afterPropertiesSet();
+		factory.setPackagesToScan("edu.kwon.frmk.common.data.jpa.repository");
+		factory.afterPropertiesSet();
 		
 		return factory.getObject();
 	}
@@ -52,12 +52,12 @@ public class AppDataConfig {
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("driverClassName");	// TODO
-		dataSource.setUrl("jdbc:postgresql://localhost/dbagencyflight");
-		dataSource.setInitialSize(2);		// Initial connection size
-		dataSource.setMaxActive(5);			// Maximum active connection
-		dataSource.setUsername("");
-		dataSource.setPassword("");
+		dataSource.setDriverClassName(org.postgresql.Driver.class.getName());
+		dataSource.setUrl("jdbc:postgresql://localhost/travel-agent");
+		dataSource.setInitialSize(5);		// Initial connection size
+		dataSource.setMaxActive(10);			// Maximum active connection
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("123");
 		return dataSource;
 	}
 	
@@ -66,7 +66,8 @@ public class AppDataConfig {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setShowSql(true);
 		vendorAdapter.setGenerateDdl(true);
-		vendorAdapter.setDatabasePlatform(PostgreSQLDialect.class.getName());
+		vendorAdapter.setDatabasePlatform(PostgresPlusDialect.class.getName());
+		
 		return vendorAdapter;
 	}
 

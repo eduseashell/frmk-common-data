@@ -40,7 +40,7 @@ public abstract class Entity extends StandardEntity {
 	/**
 	 * @return the desc
 	 */
-	@Column(name = "desc")
+	@Column(name = "description")
 	public String getDesc() {
 		return desc;
 	}

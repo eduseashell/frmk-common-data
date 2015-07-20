@@ -29,11 +29,11 @@ public abstract class Person extends Entity {
 	protected String phone1;
 	protected String phone2;
 	protected String email;
-	protected String title;			// TODO Name title
+	protected String title;			//
 	protected String nationality;	// TODO nationality
 	protected String birthPlace;
 	
-	private Date birthDate;
+	protected Date birthDate;
 
 	/**
 	 * @return the firstName

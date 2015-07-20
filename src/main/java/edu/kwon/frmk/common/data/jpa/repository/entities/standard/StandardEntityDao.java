@@ -2,7 +2,7 @@ package edu.kwon.frmk.common.data.jpa.repository.entities.standard;
 
 import org.springframework.data.repository.NoRepositoryBean;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityDao;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntityDao;
 
 /**
  * Standard Entity Dao
@@ -14,6 +14,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityDao;
  * @version 0.0.1
  */
 @NoRepositoryBean
-public interface StandardEntityDao<T extends StandardEntity> extends BaseEntityDao<T> {
+public interface StandardEntityDao<T extends StandardEntity> extends AuditEntityDao<T> {
 
 }

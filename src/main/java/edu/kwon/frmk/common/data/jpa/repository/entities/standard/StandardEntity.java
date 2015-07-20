@@ -3,7 +3,7 @@ package edu.kwon.frmk.common.data.jpa.repository.entities.standard;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntity;
 
 /**
  * Standard Entity
@@ -14,7 +14,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class StandardEntity extends BaseEntity {
+public abstract class StandardEntity extends AuditEntity {
 
 	private static final long serialVersionUID = -4090592233394515145L;
 	
@@ -25,7 +25,7 @@ public abstract class StandardEntity extends BaseEntity {
 	 * @return the active
 	 */
 	@Column(name = "active")
-	public Boolean getActive() {
+	public Boolean isActive() {
 		return active;
 	}
 
@@ -40,7 +40,7 @@ public abstract class StandardEntity extends BaseEntity {
 	 * @return the recycleBin
 	 */
 	@Column(name = "recycle_bin")
-	public Boolean getRecycleBin() {
+	public Boolean isRecycleBin() {
 		return recycleBin;
 	}
 

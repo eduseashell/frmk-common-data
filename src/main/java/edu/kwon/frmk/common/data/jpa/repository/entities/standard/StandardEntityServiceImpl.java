@@ -1,6 +1,6 @@
 package edu.kwon.frmk.common.data.jpa.repository.entities.standard;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceImpl;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntityServiceImpl;
 
 /**
  * Standard Entity Service Implementation
@@ -11,7 +11,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceI
  * @since
  * @version
  */
-public abstract class StandardEntityServiceImpl<T extends StandardEntity> extends BaseEntityServiceImpl<T> implements StandardEntityService<T> {
+public abstract class StandardEntityServiceImpl<T extends StandardEntity> extends AuditEntityServiceImpl<T> implements StandardEntityService<T> {
 
 	/**
 	 * @see edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityServiceImpl#save(edu.kwon.frmk.common.data.jpa.entities.root.RootEntity)

@@ -1,11 +1,11 @@
-package edu.kwon.frmk.common.data.jpa.repository.entities.base;
+package edu.kwon.frmk.common.data.jpa.repository.entities.audit;
 
 import org.springframework.data.repository.NoRepositoryBean;
 
 import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
 
 /**
- * Base Entity Dao
+ * Audit Entity Dao
  * @author Bunlong Taing
  *
  * @param <T>
@@ -13,6 +13,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
  * @version 0.0.1
  */
 @NoRepositoryBean
-public interface BaseEntityDao<T extends BaseEntity> extends RootEntityDao<T> {
+public interface AuditEntityDao<T extends AuditEntity> extends RootEntityDao<T> {
 
 }

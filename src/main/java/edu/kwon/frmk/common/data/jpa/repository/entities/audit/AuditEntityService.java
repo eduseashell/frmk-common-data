@@ -1,9 +1,9 @@
-package edu.kwon.frmk.common.data.jpa.repository.entities.base;
+package edu.kwon.frmk.common.data.jpa.repository.entities.audit;
 
 import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityService;
 
 /**
- * Base Entity Service
+ * Audit Entity Service
  * @author Bunlong Taing
  *
  * @param <T>
@@ -11,6 +11,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityService;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface BaseEntityService<T extends BaseEntity> extends RootEntityService<T> {
+public interface AuditEntityService<T extends AuditEntity> extends RootEntityService<T> {
 
 }

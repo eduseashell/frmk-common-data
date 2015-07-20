@@ -2,7 +2,7 @@ package edu.kwon.frmk.common.data.jpa.repository.entities.standard;
 
 import javax.persistence.Transient;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityService;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntityService;
 
 /**
  * Standard Entity Service
@@ -13,7 +13,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityService;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface StandardEntityService<T extends StandardEntity> extends BaseEntityService<T> {
+public interface StandardEntityService<T extends StandardEntity> extends AuditEntityService<T> {
 	
 	/**
 	 * Save the StandarEntity or it descend

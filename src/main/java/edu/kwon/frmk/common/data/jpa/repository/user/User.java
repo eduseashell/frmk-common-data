@@ -18,7 +18,7 @@ import edu.kwon.frmk.common.data.jpa.repository.person.Person;
  * @version 0.0.1
  */
 @Entity
-@Table(name = "dt_user")	// dt = Data table
+@Table(name = "at_user")	// at = admin table
 public class User extends Person {
 
 	private static final long serialVersionUID = -4760429907328356533L;

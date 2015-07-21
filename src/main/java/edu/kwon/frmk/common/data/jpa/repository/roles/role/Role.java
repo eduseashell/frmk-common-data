@@ -1,12 +1,13 @@
-package edu.kwon.frmk.common.data.jpa.repository.role;
+package edu.kwon.frmk.common.data.jpa.repository.roles.role;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
 
 /**
  * The role of the user in the application
@@ -18,9 +19,9 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
  * @since 0.0.1
  * @version 0.0.1
  */
-@javax.persistence.Entity
-@Table(name = "dt_role")
-public class Role extends Entity {
+@Entity
+@Table(name = "at_role")	// at = Admin table
+public class Role extends BaseEntity {
 
 	private static final long serialVersionUID = -7451796372520717300L;
 	

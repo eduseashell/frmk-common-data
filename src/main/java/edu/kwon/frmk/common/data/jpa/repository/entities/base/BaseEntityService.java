@@ -1,9 +1,9 @@
-package edu.kwon.frmk.common.data.jpa.repository.entities.entity;
+package edu.kwon.frmk.common.data.jpa.repository.entities.base;
 
 import edu.kwon.frmk.common.data.jpa.repository.entities.standard.StandardEntityService;
 
 /**
- * Entity Service
+ * BaseEntity Service
  * @author Bunlong Taing
  *
  * @param <T>
@@ -11,6 +11,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.standard.StandardEntity
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface EntityService<T extends Entity> extends StandardEntityService<T> {
+public interface BaseEntityService<T extends BaseEntity> extends StandardEntityService<T> {
 
 }

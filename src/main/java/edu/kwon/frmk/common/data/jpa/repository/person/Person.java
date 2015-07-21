@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
 
 /**
  * Person
@@ -17,7 +17,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class Person extends Entity {
+public abstract class Person extends BaseEntity {
 
 	private static final long serialVersionUID = 9196195782133334240L;
 	

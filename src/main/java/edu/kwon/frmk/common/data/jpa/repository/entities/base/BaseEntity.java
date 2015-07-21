@@ -1,4 +1,4 @@
-package edu.kwon.frmk.common.data.jpa.repository.entities.entity;
+package edu.kwon.frmk.common.data.jpa.repository.entities.base;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 import edu.kwon.frmk.common.data.jpa.repository.entities.standard.StandardEntity;
 
 /**
- * Entity
+ * Base Entity provides description and code
  * 
  * @author Bunlong Taing
  *
@@ -15,7 +15,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.standard.StandardEntity
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class Entity extends StandardEntity {
+public abstract class BaseEntity extends StandardEntity {
 
 	private static final long serialVersionUID = 8903029047937288680L;
 

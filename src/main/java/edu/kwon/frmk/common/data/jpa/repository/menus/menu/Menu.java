@@ -3,14 +3,17 @@ package edu.kwon.frmk.common.data.jpa.repository.menus.menu;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.sun.glass.ui.MenuItem;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
 
 /**
  * Menu of the application (this treat just like a menu bar)
@@ -20,14 +23,18 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.entity.Entity;
  * @since 0.0.1
  * @version 0.0.1
  */
-@javax.persistence.Entity
+@Entity
 @Table(name = "st_menu")		// st = Setting table
-public class Menu extends Entity {
+public class Menu extends BaseEntity {
 
 	private static final long serialVersionUID = -2595484350671879549L;
 	
 	private List<MenuItem> menuItems;
+	// code for app code
 
+	/**
+	 * Menu Id
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "menu_id", nullable = false)
@@ -39,6 +46,7 @@ public class Menu extends Entity {
 	/**
 	 * @return the menuItems
 	 */
+	@OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
 	public List<MenuItem> getMenuItems() {
 		return menuItems;
 	}

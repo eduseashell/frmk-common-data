@@ -1,6 +1,6 @@
 package edu.kwon.frmk.common.data.jpa.repository.person;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.EntityServiceImpl;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceImpl;
 
 /**
  * 
@@ -11,6 +11,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.entity.EntityServiceImp
  * @since
  * @version
  */
-public abstract class PersonServiceImpl<T extends Person> extends EntityServiceImpl<T> implements PersonService<T> {
+public abstract class PersonServiceImpl<T extends Person> extends BaseEntityServiceImpl<T> implements PersonService<T> {
 
 }

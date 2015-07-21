@@ -1,6 +1,6 @@
 package edu.kwon.frmk.common.data.jpa.repository.user;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.EntityService;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityService;
 
 /**
  * User Service
@@ -10,6 +10,6 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.entity.EntityService;
  * @since 0.0.1
  * @version 0.0.1
  */
-public interface UserService extends EntityService<User> {
+public interface UserService extends BaseEntityService<User> {
 
 }

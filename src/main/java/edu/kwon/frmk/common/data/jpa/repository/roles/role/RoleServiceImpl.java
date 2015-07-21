@@ -1,11 +1,9 @@
-package edu.kwon.frmk.common.data.jpa.repository.role;
-
-import javax.transaction.Transactional;
+package edu.kwon.frmk.common.data.jpa.repository.roles.role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.entity.EntityServiceImpl;
+import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceImpl;
 import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
 
 /**
@@ -17,8 +15,8 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
  * @version 0.0.1
  */
 @Service
-@Transactional
-public class RoleServiceImpl extends EntityServiceImpl<Role> implements RoleService {
+//@Transactional
+public class RoleServiceImpl extends BaseEntityServiceImpl<Role> implements RoleService {
 
 	@Autowired
 	private RoleDao dao;

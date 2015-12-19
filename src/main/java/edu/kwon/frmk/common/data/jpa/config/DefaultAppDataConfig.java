@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * - DataSource
  * - Entity Manager Factory: use
  * - Transaction Manager:
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jun 22, 2015
  * @since 0.0.1

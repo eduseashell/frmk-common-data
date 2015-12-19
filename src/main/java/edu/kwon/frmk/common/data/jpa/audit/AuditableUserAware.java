@@ -6,7 +6,7 @@ import edu.kwon.frmk.common.data.jpa.repository.user.User;
 
 /**
  * Audit all entity save to the database
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jul 18, 2015
  * @since 0.0.1

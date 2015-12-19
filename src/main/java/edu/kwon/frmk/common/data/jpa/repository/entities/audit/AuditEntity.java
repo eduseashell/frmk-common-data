@@ -27,7 +27,7 @@ import edu.kwon.frmk.common.data.jpa.repository.user.User;
  * - created by (which user)
  * - modified by (which user)
  * 
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jun 21, 2015
  * @since 0.0.1

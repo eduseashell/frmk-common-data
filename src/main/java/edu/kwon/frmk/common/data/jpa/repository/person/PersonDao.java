@@ -6,7 +6,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityDao;
 
 /**
  * Person Dao
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jun 21, 2015
  * @since 0.0.1

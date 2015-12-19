@@ -14,6 +14,9 @@
 		<slf4j-version>1.7.12</slf4j-version>
 		<commons-dbcp>1.4</commons-dbcp>
 		<postgresql-driver-version>9.1-901-1.jdbc4</postgresql-driver-version>
+		
+		<build-version>1.8</build-version>
+		<build-encoding>UTF-8</build-encoding>
 	</properties>
 
 	<dependencies>
@@ -79,4 +82,34 @@
 		</dependency>
 
 	</dependencies>
+	
+	<build>
+		<!-- <resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+			</resource>
+		</resources> -->
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>${build-version}</source>
+					<target>${build-version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<encoding>${build-encoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

@@ -7,7 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 /**
  * Dao of Root Entity
  * Which extend the Spring JpaRepository and JpaSpecificationExecutor
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @param <T>
  * @since 0.0.1

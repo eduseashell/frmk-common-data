@@ -4,7 +4,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceI
 
 /**
  * 
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @param <T>
  * @since Jun 21, 2015

@@ -13,14 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntity;
 import edu.kwon.frmk.common.data.jpa.repository.menus.menu.Menu;
 
 /**
  * MenuItem is the menu which could has a parent or children
  * - A MenuItem which has no child or children should provide the action
  * - A MenuItem which has no parent is the top level menu
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jul 20, 2015
  * @since 0.0.1
@@ -28,7 +28,7 @@ import edu.kwon.frmk.common.data.jpa.repository.menus.menu.Menu;
  */
 @Entity
 @Table(name = "st_menu_item")
-public class MenuItem extends BaseEntity {
+public class MenuItem extends AuditEntity {
 
 	private static final long serialVersionUID = 3191515148191755885L;
 	

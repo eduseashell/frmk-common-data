@@ -4,7 +4,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityService;
 
 /**
  * Audit Entity Service
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @param <T>
  * @since Jun 21, 2015

@@ -7,7 +7,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceI
 
 /**
  * User Service Implementation
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jun 22, 2015
  * @since 0.0.1

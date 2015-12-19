@@ -3,19 +3,19 @@ package edu.kwon.frmk.common.data.jpa.repository.entities.base;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.standard.StandardEntity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntity;
 
 /**
  * Base Entity provides description and code
  * 
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jun 21, 2015
  * @since 0.0.1
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class BaseEntity extends StandardEntity {
+public abstract class BaseEntity extends AuditEntity {
 
 	private static final long serialVersionUID = 8903029047937288680L;
 

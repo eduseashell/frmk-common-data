@@ -6,7 +6,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
 
 /**
  * Audit Entity Dao
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @param <T>
  * @since 0.0.1

@@ -11,13 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.sun.glass.ui.MenuItem;
-
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
+import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntity;
+import edu.kwon.frmk.common.data.jpa.repository.menus.item.MenuItem;
 
 /**
  * Menu of the application (this treat just like a menu bar)
- * @author Bunlong Taing
+ * @author eduseashell
  *
  * @since Jul 20, 2015
  * @since 0.0.1
@@ -25,7 +24,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
  */
 @Entity
 @Table(name = "st_menu")		// st = Setting table
-public class Menu extends BaseEntity {
+public class Menu extends AuditEntity {
 
 	private static final long serialVersionUID = -2595484350671879549L;
 	

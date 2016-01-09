@@ -16,13 +16,13 @@ public interface RootEntityService<T extends RootEntity> {
 	 * Save the Entity
 	 * @param rootEntity
 	 */
-	public void save(T rootEntity);
+	public T save(T rootEntity);
 	
 	/**
 	 * Update the Entity
 	 * @param rootEntity
 	 */
-	public void update(T rootEntity);
+	public T update(T rootEntity);
 	
 	/**
 	 * Delete the Entity
@@ -31,23 +31,35 @@ public interface RootEntityService<T extends RootEntity> {
 	public void delete(T rootEntity);
 	
 	/**
+	 * Restore the deleted entity
+	 * @param rootEntity
+	 */
+	public T restoreDelete(T rootEntity);
+	
+	/**
 	 * RecycleBin Entity
 	 * @param rootEntitys
 	 */
-	public void recycleBin(T rootEntity);
+	public void deletePermanently(T rootEntity);
 	
 	/**
 	 * 
 	 * @param rootEntity
 	 * @return
 	 */
-	public void activate(T rootEntity);
+	public T activate(T rootEntity);
 	
 	/**
 	 * 
 	 * @param rootEntity
 	 * @return
 	 */
-	public void deactivate(T rootEntity);
+	public T deactivate(T rootEntity);
+	
+	/**
+	 * Find the entity by id
+	 * @param id
+	 */
+	public T findById(Long id);
 
 }

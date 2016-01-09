@@ -16,4 +16,11 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface RootEntityDao<T extends RootEntity> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
 
+	/**
+	 * Find the entity by Id
+	 * @param id
+	 * @return
+	 */
+	public T findByIdAndDelete(Long id, boolean delete);
+	
 }

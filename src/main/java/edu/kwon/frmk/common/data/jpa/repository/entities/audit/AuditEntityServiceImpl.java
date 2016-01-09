@@ -1,5 +1,8 @@
 package edu.kwon.frmk.common.data.jpa.repository.entities.audit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityServiceImpl;
 
 /**
@@ -11,6 +14,14 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityServiceI
  * @since 0.0.1
  * @version 0.0.1
  */
-public abstract class AuditEntityServiceImpl<T extends AuditEntity> extends RootEntityServiceImpl<T> implements AuditEntityService<T> {
+@Service
+public class AuditEntityServiceImpl<T extends AuditEntity> extends RootEntityServiceImpl<T> implements AuditEntityService<T> {
 
+	@Autowired
+	private AuditEntityDao<T> dao;
+	
+	@Override
+	public AuditEntityDao<T> getDao() {
+		return dao;
+	}
 }

@@ -3,7 +3,7 @@ package edu.kwon.frmk.common.data.jpa.repository.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceImpl;
+import edu.kwon.frmk.common.data.jpa.repository.person.PersonServiceImpl;
 
 /**
  * User Service Implementation
@@ -15,13 +15,13 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntityServiceI
  */
 @Service
 //@Transactional	// @Service is Transactional by default:check
-public class UserServiceImpl extends BaseEntityServiceImpl<User> implements UserService {
+public class UserServiceImpl extends PersonServiceImpl<User> implements UserService {
 	
 	@Autowired
 	private UserDao dao;
 
 	@Override
-	protected UserDao getDao() {
+	public UserDao getDao() {
 		return this.dao;
 	}
 

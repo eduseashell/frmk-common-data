@@ -20,7 +20,7 @@ public abstract class RootEntity implements Serializable {
 	
 	protected Long id;
 	protected Boolean active;
-	protected Boolean recycleBin;
+	protected Boolean delete;
 
 	/**
 	 * @return the id
@@ -38,7 +38,7 @@ public abstract class RootEntity implements Serializable {
 	 * @return the active
 	 */
 	@Column(name = "active")
-	public Boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
@@ -50,18 +50,18 @@ public abstract class RootEntity implements Serializable {
 	}
 
 	/**
-	 * @return the recycleBin
+	 * @return the delete
 	 */
-	@Column(name = "recycle_bin")
-	public Boolean isRecycleBin() {
-		return recycleBin;
+	@Column(name = "delete")
+	public Boolean getDelete() {
+		return delete;
 	}
 
 	/**
-	 * @param recycleBin the recycleBin to set
+	 * @param delete the delete to set
 	 */
-	public void setRecycleBin(Boolean recycleBin) {
-		this.recycleBin = recycleBin;
+	public void setDelete(Boolean delete) {
+		this.delete = delete;
 	}
 
 }

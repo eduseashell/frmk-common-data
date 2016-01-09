@@ -1,5 +1,7 @@
 package edu.kwon.frmk.common.data.jpa.repository.user;
 
+import org.springframework.stereotype.Repository;
+
 import edu.kwon.frmk.common.data.jpa.repository.person.PersonDao;
 
 /**
@@ -10,7 +12,7 @@ import edu.kwon.frmk.common.data.jpa.repository.person.PersonDao;
  * @since 0.0.1
  * @version 0.0.1
  */
-//@Repository TODO Check if need this annotation
+@Repository
 public interface UserDao extends PersonDao<User> {
 
 }

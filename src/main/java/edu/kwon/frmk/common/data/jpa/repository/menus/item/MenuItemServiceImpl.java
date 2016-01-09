@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntityServiceImpl;
-import edu.kwon.frmk.common.data.jpa.repository.entities.root.RootEntityDao;
 
 /**
  * Menu Item Service Implementation
@@ -21,7 +20,7 @@ public class MenuItemServiceImpl extends AuditEntityServiceImpl<MenuItem> implem
 	private MenuItemDao dao;
 	
 	@Override
-	protected RootEntityDao<MenuItem> getDao() {
+	public MenuItemDao getDao() {
 		return this.dao;
 	}
 

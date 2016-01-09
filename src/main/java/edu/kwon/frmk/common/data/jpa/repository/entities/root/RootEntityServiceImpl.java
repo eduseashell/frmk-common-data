@@ -1,5 +1,7 @@
 package edu.kwon.frmk.common.data.jpa.repository.entities.root;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * Root Entity Service Implementation
  * @author eduseashell
@@ -8,42 +10,57 @@ package edu.kwon.frmk.common.data.jpa.repository.entities.root;
  * @since 0.0.1
  * @version 0.0.1
  */
-public abstract class RootEntityServiceImpl<T extends RootEntity> implements RootEntityService<T> {
+public class RootEntityServiceImpl<T extends RootEntity> implements RootEntityService<T> {
 
+	@Autowired
+	private RootEntityDao<T> dao;
+	
 	@Override
-	public void save(T rootEntity) {
-		getDao().save(rootEntity);
+	public T save(T rootEntity) {
+		return getDao().save(rootEntity);
 	}
 
 	@Override
-	public void update(T rootEntity) {
-		getDao().save(rootEntity);
+	public T update(T rootEntity) {
+		return save(rootEntity);
 	}
 
 	@Override
 	public void delete(T rootEntity) {
+		rootEntity.setDelete(true);
 		getDao().delete(rootEntity);
 	}
 	
 	@Override
-	public void recycleBin(T rootEntity) {
-		rootEntity.setRecycleBin(Boolean.TRUE);
-		save(rootEntity);
+	public T restoreDelete(T rootEntity) {
+		rootEntity.setDelete(false);
+		return update(rootEntity);
 	}
 	
 	@Override
-	public void activate(T rootEntity) {
+	public void deletePermanently(T rootEntity) {
+		getDao().delete(rootEntity);
+	}
+	
+	@Override
+	public T activate(T rootEntity) {
 		rootEntity.setActive(Boolean.TRUE);
-		save(rootEntity);
+		return save(rootEntity);
 	}
 	
 	@Override
-	public void deactivate(T rootEntity) {
+	public T deactivate(T rootEntity) {
 		rootEntity.setActive(Boolean.FALSE);
-		save(rootEntity);
+		return save(rootEntity);
 	}
 	
-//	protected abstract <Dao extends RootEntityDao<T>> Dao getDao();
-	protected abstract RootEntityDao<T> getDao();
+	public RootEntityDao<T> getDao() {
+		return dao;
+	}
+	
+	@Override
+	public T findById(Long id) {
+		return dao.findByIdAndDelete(id, false);
+	}
 
 }

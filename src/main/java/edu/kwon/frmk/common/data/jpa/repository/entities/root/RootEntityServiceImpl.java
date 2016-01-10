@@ -1,6 +1,5 @@
 package edu.kwon.frmk.common.data.jpa.repository.entities.root;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Root Entity Service Implementation
@@ -10,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 0.0.1
  * @version 0.0.1
  */
-public class RootEntityServiceImpl<T extends RootEntity> implements RootEntityService<T> {
-
-	@Autowired
-	private RootEntityDao<T> dao;
+public abstract class RootEntityServiceImpl<T extends RootEntity> implements RootEntityService<T> {
 	
 	@Override
 	public T save(T rootEntity) {
@@ -54,13 +50,11 @@ public class RootEntityServiceImpl<T extends RootEntity> implements RootEntitySe
 		return save(rootEntity);
 	}
 	
-	public RootEntityDao<T> getDao() {
-		return dao;
-	}
-	
 	@Override
 	public T findById(Long id) {
-		return dao.findByIdAndDelete(id, false);
+		return getDao().findByIdAndDelete(id, false);
 	}
+	
+	public abstract RootEntityDao<T> getDao();
 
 }

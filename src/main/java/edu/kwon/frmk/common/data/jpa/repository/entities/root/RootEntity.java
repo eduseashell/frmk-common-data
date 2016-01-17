@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.Transient;
 
 /**
  * This is the root of the entity, so all the
@@ -14,17 +16,18 @@ import javax.persistence.MappedSuperclass;
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class RootEntity implements Serializable {
+public abstract class RootEntity implements RootEntityField, Serializable {
 
 	private static final long serialVersionUID = -5068682950591194650L;
 	
 	protected Long id;
 	protected Boolean active;
-	protected Boolean delete;
+	protected Boolean blDelete;
 
 	/**
 	 * @return the id
 	 */
+	@Transient
 	public abstract Long getId();
 
 	/**
@@ -37,7 +40,7 @@ public abstract class RootEntity implements Serializable {
 	/**
 	 * @return the active
 	 */
-	@Column(name = "active")
+	@Column(name = "re_active", nullable = false)
 	public Boolean getActive() {
 		return active;
 	}
@@ -50,18 +53,27 @@ public abstract class RootEntity implements Serializable {
 	}
 
 	/**
-	 * @return the delete
+	 * @return the blDelete
 	 */
-	@Column(name = "delete")
-	public Boolean getDelete() {
-		return delete;
+	@Column(name = "re_delete", nullable = false)
+	public Boolean getBlDelete() {
+		return blDelete;
 	}
 
 	/**
-	 * @param delete the delete to set
+	 * @param blDelete the delete to set
 	 */
-	public void setDelete(Boolean delete) {
-		this.delete = delete;
+	public void setBlDelete(Boolean delete) {
+		this.blDelete = delete;
 	}
+	
+	@PrePersist
+	public void prePersist() {
+		setActive(true);
+		setBlDelete(false);
+	}
+	
+//	@PreUpdate
+//	public void preUpdate() {}
 
 }

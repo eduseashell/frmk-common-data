@@ -35,7 +35,7 @@ import edu.kwon.frmk.common.data.jpa.repository.user.User;
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditEntity extends RootEntity {
+public abstract class AuditEntity extends RootEntity implements AuditEntityField {
 
 	private static final long serialVersionUID = -4663789121672082639L;
 

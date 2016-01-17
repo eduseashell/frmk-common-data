@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
+
 import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
 
 /**
@@ -17,7 +19,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.base.BaseEntity;
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class Person extends BaseEntity {
+public abstract class Person extends BaseEntity implements PersonField {
 
 	private static final long serialVersionUID = 9196195782133334240L;
 	
@@ -34,6 +36,27 @@ public abstract class Person extends BaseEntity {
 	protected String birthPlace;
 	
 	protected Date birthDate;
+	
+	/**
+	 * Get full name: firstName middleName lastName
+	 * @return
+	 */
+	@Transient
+	public String getFullName() {
+		StringBuilder name = new StringBuilder();
+		if (StringUtils.isNotEmpty(getFirstName())) {
+			name.append(getFirstName());
+		}
+		if (StringUtils.isNotEmpty(getMiddleName())) {
+			if (name.length() < 1) name.append(StringUtils.SPACE); 
+			name.append(getMiddleName());
+		}
+		if (StringUtils.isNotEmpty(getLastName())) {
+			if (name.length() > 1) name.append(StringUtils.SPACE);
+			name.append(getLastName());
+		}
+		return name.toString();
+	}
 
 	/**
 	 * @return the firstName

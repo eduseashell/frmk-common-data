@@ -15,7 +15,7 @@ import edu.kwon.frmk.common.data.jpa.repository.entities.audit.AuditEntity;
  * @version 0.0.1
  */
 @MappedSuperclass
-public abstract class BaseEntity extends AuditEntity {
+public abstract class BaseEntity extends AuditEntity implements BaseEntityField {
 
 	private static final long serialVersionUID = 8903029047937288680L;
 
@@ -25,7 +25,7 @@ public abstract class BaseEntity extends AuditEntity {
 	/**
 	 * @return the code
 	 */
-	@Column(name = "code", unique = true)
+	@Column(name = "be_code", unique = true)
 	public String getCode() {
 		return code;
 	}
@@ -40,7 +40,7 @@ public abstract class BaseEntity extends AuditEntity {
 	/**
 	 * @return the desc
 	 */
-	@Column(name = "description")
+	@Column(name = "be_description")
 	public String getDesc() {
 		return desc;
 	}

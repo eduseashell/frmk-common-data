@@ -1,5 +1,7 @@
 package edu.kwon.frmk.common.data.jpa.repository.entities.root;
 
+import java.util.List;
+
 
 /**
  * Root Entity Service Implementation
@@ -23,14 +25,26 @@ public abstract class RootEntityServiceImpl<T extends RootEntity> implements Roo
 
 	@Override
 	public void delete(T rootEntity) {
-		rootEntity.setDelete(true);
+		rootEntity.setBlDelete(true);
 		getDao().delete(rootEntity);
 	}
 	
 	@Override
+	public void delete(Long id) {
+		T t = findById(id);
+		delete(t);
+	}
+	
+	@Override
 	public T restoreDelete(T rootEntity) {
-		rootEntity.setDelete(false);
+		rootEntity.setBlDelete(false);
 		return update(rootEntity);
+	}
+	
+	@Override
+	public T restoreDelete(Long id) {
+		T t = getDao().findOne(id);
+		return restoreDelete(t);
 	}
 	
 	@Override
@@ -52,7 +66,12 @@ public abstract class RootEntityServiceImpl<T extends RootEntity> implements Roo
 	
 	@Override
 	public T findById(Long id) {
-		return getDao().findByIdAndDelete(id, false);
+		return getDao().findByIdAndBlDelete(id, false);
+	}
+	
+	@Override
+	public List<T> findAll(RootSpecification<T> specification) {
+		return getDao().findAll(specification);
 	}
 	
 	public abstract RootEntityDao<T> getDao();

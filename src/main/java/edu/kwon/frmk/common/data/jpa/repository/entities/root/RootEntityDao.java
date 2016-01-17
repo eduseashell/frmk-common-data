@@ -21,6 +21,6 @@ public interface RootEntityDao<T extends RootEntity> extends JpaRepository<T, Lo
 	 * @param id
 	 * @return
 	 */
-	public T findByIdAndDelete(Long id, boolean delete);
+	public T findByIdAndBlDelete(Long id, boolean delete);
 	
 }

@@ -1,5 +1,6 @@
 package edu.kwon.frmk.common.data.jpa.repository.user;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import edu.kwon.frmk.common.data.jpa.repository.person.Person;
 
@@ -21,7 +26,7 @@ import edu.kwon.frmk.common.data.jpa.repository.person.Person;
  */
 @Entity
 @Table(name = "at_user")	// at = admin table
-public class User extends Person implements UserField {
+public class User extends Person implements UserField, UserDetails {
 
 	private static final long serialVersionUID = -4760429907328356533L;
 	
@@ -35,6 +40,7 @@ public class User extends Person implements UserField {
 	private Boolean freeze;					// Stop the user from login
 	private Long maxTimePwdChange;			// The max time for password to be changed after last password changed in seconds.
 	private Integer maxAttemptLogInAllow;	// The max number of fail login allowed before freeze the user
+	private Integer nbFailedLogInAttempt;	// The number of fail login attempt
 //	private List<Profile> profiles;
 
 	/**
@@ -57,6 +63,7 @@ public class User extends Person implements UserField {
 		this.userName = userName;
 	}
 
+	@Override
 	@Column(name = "usr_pwd", length = 100, nullable = false)
 	public String getPassword() {
 		return password;
@@ -136,6 +143,60 @@ public class User extends Person implements UserField {
 
 	public void setMaxAttemptLogInAllow(Integer maxAttemptLogInAllow) {
 		this.maxAttemptLogInAllow = maxAttemptLogInAllow;
+	}
+	
+	@Column(name = "nb_failed_log_in_attempt")
+	public Integer getNbFailedLogInAttempt() {
+		return nbFailedLogInAttempt;
+	}
+
+	public void setNbFailedLogInAttempt(Integer nbFailedLogInAttempt) {
+		this.nbFailedLogInAttempt = nbFailedLogInAttempt;
+	}
+	
+	//=================================================================
+	//				Spring Security - UserDetails
+	//=================================================================
+
+	@Override
+	@Transient
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transient
+	public String getUsername() {
+		return getUserName();
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

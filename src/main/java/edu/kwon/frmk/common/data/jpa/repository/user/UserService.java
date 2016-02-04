@@ -11,5 +11,30 @@ import edu.kwon.frmk.common.data.jpa.repository.person.PersonService;
  * @version 0.0.1
  */
 public interface UserService extends PersonService<User> {
+	
+	/**
+	 * Get User By User Name
+	 * @param userName
+	 * @return
+	 */
+	User getByUserName(String userName);
+	
+	/**
+	 * Clear the failed login attempt number
+	 */
+	void clearNbFailedLogInAttempt(User user);
+	
+	/**
+	 * Increate the number of failed attempt
+	 * @param username
+	 */
+	void increaseNbFailedLogInAttempt(String username);
+	
+	/**
+	 * Change the password
+	 * @param user
+	 * @param password
+	 */
+	User changePassword(User user, String oldPassword, String newPassword);
 
 }

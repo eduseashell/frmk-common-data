@@ -1,7 +1,12 @@
 package edu.kwon.frmk.common.data.jpa.repository.user;
 
+import java.util.Calendar;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +24,8 @@ import edu.kwon.frmk.common.data.jpa.repository.person.PersonServiceImpl;
 //@Transactional	// @Service is Transactional by default:check
 public class UserServiceImpl extends PersonServiceImpl<User> implements UserService {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private UserDao dao;
 	@Autowired
@@ -31,20 +38,27 @@ public class UserServiceImpl extends PersonServiceImpl<User> implements UserServ
 	
 	@Override
 	public User save(User user) {
+		
+		// TODO set configuration in user form, so remove here
+		user.setDefaultPwd(true);
+		user.setNeedPwdChange(true);
+		user.setLocked(false);
+		user.setMaxAttemptLogInAllow(5);
+		user.setMaxTimePwdChange(15768000000l);		// half year millisecond
+		
 		CharSequence pwdRaw = user.getPassword();
 		user.setPassword(pwdEncoder.encode(pwdRaw));
 		return super.save(user);
+	}
+	
+	@Override
+	public User update(User rootEntity) {
+		return super.save(rootEntity);
 	}
 
 	@Override
 	public User getByUserName(String userName) {
 		return dao.findByUserNameAndBlDelete(userName, false);
-	}
-
-	@Override
-	public void clearNbFailedLogInAttempt(User user) {
-		user.setNbFailedLogInAttempt(0);
-		update(user);
 	}
 
 	@Override
@@ -68,12 +82,40 @@ public class UserServiceImpl extends PersonServiceImpl<User> implements UserServ
 		}
 		if (pwdEncoder.matches(oldPassword, pwdChangedUser.getPassword())) {
 			pwdChangedUser.setPassword(pwdEncoder.encode(newPassword));
+			pwdChangedUser.setLastPwdModifiedDate(Calendar.getInstance().getTime());
 			update(pwdChangedUser);
 		} else {
 			String msg = "Change password failed, unauthorized";
 			throw new BadCredentialsException(msg);
 		}
 		return pwdChangedUser;
+	}
+
+	@Override
+	public void afterLogIn(String userName) {
+		logger.debug("User login: " + userName);
+
+		User user = getByUserName(userName);
+		if (user == null) {
+			String msg = "The user " + userName + " not found.";
+			throw new UsernameNotFoundException(msg);
+		}
+		user.setNbFailedLogInAttempt(0);
+		user.setLastLogInDate(Calendar.getInstance().getTime());
+		update(user);
+	}
+
+	@Override
+	public void afterLogOut(String userName) {
+		logger.debug("User logout: " + userName);
+		
+		User user = getByUserName(userName);
+		if (user == null) {
+			String msg = "The user " + userName + " not found.";
+			throw new UsernameNotFoundException(msg);
+		}
+		user.setLastLogOutDate(Calendar.getInstance().getTime());
+		update(user);
 	}
 
 }

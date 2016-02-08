@@ -7,5 +7,7 @@ public interface AuthenticationService extends UserDetailsService {
 	boolean isAuthenticated();
 	
 	void authenticate(String username, String password);
+	
+	void logOut();
 
 }

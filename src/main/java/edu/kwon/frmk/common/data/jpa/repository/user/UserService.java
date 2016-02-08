@@ -20,11 +20,6 @@ public interface UserService extends PersonService<User> {
 	User getByUserName(String userName);
 	
 	/**
-	 * Clear the failed login attempt number
-	 */
-	void clearNbFailedLogInAttempt(User user);
-	
-	/**
 	 * Increate the number of failed attempt
 	 * @param username
 	 */
@@ -36,5 +31,19 @@ public interface UserService extends PersonService<User> {
 	 * @param password
 	 */
 	User changePassword(User user, String oldPassword, String newPassword);
+	
+	/**
+	 * After log in:
+	 * - Clear the failed login attempt number
+	 * - Set last log in date
+	 */
+	void afterLogIn(String userName);
+	
+	/**
+	 * After log out:
+	 * - Set last log out date
+	 * @param userName
+	 */
+	void afterLogOut(String userName);
 
 }

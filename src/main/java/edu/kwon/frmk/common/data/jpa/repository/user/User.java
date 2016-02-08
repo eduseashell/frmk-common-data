@@ -1,5 +1,6 @@
 package edu.kwon.frmk.common.data.jpa.repository.user;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,21 +28,24 @@ import edu.kwon.frmk.common.data.jpa.repository.person.Person;
  */
 @Entity
 @Table(name = "at_user")	// at = admin table
-public class User extends Person implements UserField, UserDetails {
+public class User extends Person implements UserField, UserDetails, CredentialsContainer {
 
 	private static final long serialVersionUID = -4760429907328356533L;
 	
-	private String userName;				// for login, use it as login name
-	private String password;
-	private Date lastPwdModifiedDate;
-	private Date lastLogInDate;
-	private Date lastLogOutDate;
-	private Boolean defaultPwd;				// true: current pwd is default
-	private Boolean needPwdChange;			// true: pwd need to change before login
-	private Boolean freeze;					// Stop the user from login
-	private Long maxTimePwdChange;			// The max time for password to be changed after last password changed in seconds.
-	private Integer maxAttemptLogInAllow;	// The max number of fail login allowed before freeze the user
-	private Integer nbFailedLogInAttempt;	// The number of fail login attempt
+	private String userName;					// for login, use it as login name
+	private String password;					//
+	private Date lastPwdModifiedDate;			//
+	private Date lastLogInDate;					//
+	private Date lastLogOutDate;				//
+	private Boolean defaultPwd;					// true: current pwd is default
+	private Boolean needPwdChange;				// true: pwd need to change before login
+	private Boolean locked;						// A locked user cannot be authenticated
+	private Long maxTimePwdChange;				// The max time for password to be changed after last password changed in milliseconds.
+	private Integer maxAttemptLogInAllow;		// The max number of fail login allowed before freeze the user
+	private Integer nbFailedLogInAttempt;		// The number of fail login attempt
+	
+	private Date expiredDate;					// An expired account cannot be authenticated. null for no expired date
+	
 //	private List<Profile> profiles;
 
 	/**
@@ -118,13 +123,13 @@ public class User extends Person implements UserField, UserDetails {
 		this.needPwdChange = needPwdChange;
 	}
 
-	@Column(name = "usr_freeze")
-	public Boolean getFreeze() {
-		return freeze;
+	@Column(name = "usr_locked")
+	public Boolean getLocked() {
+		return locked;
 	}
 
-	public void setFreeze(Boolean freeze) {
-		this.freeze = freeze;
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
 	}
 
 	@Column(name = "max_time_pwd_change")
@@ -154,6 +159,15 @@ public class User extends Person implements UserField, UserDetails {
 		this.nbFailedLogInAttempt = nbFailedLogInAttempt;
 	}
 	
+	@Column(name = "df_expired")
+	public Date getExpiredDate() {
+		return expiredDate;
+	}
+
+	public void setExpiredDate(Date expiredDate) {
+		this.expiredDate = expiredDate;
+	}
+	
 	//=================================================================
 	//				Spring Security - UserDetails
 	//=================================================================
@@ -174,29 +188,36 @@ public class User extends Person implements UserField, UserDetails {
 	@Override
 	@Transient
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
+		return getExpiredDate() == null || getExpiredDate().after(Calendar.getInstance().getTime());
 	}
 
 	@Override
 	@Transient
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
+		int maxAllow = getMaxAttemptLogInAllow() != null ? getMaxAttemptLogInAllow() : Integer.MAX_VALUE;
+		int failedLog = getNbFailedLogInAttempt() != null ? getNbFailedLogInAttempt() : 0;
+		boolean overLimit = maxAllow < failedLog;
+		boolean nonLocked = getLocked() != null ? !getLocked() : true;
+		return !overLimit && nonLocked;
 	}
 
 	@Override
 	@Transient
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
+		// TODO isCredentialsNonExpired
 		return true;
 	}
 
 	@Override
 	@Transient
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
+		return getActive();
+	}
+
+	@Override
+	@Transient
+	public void eraseCredentials() {
+		setPassword(null);
 	}
 
 }

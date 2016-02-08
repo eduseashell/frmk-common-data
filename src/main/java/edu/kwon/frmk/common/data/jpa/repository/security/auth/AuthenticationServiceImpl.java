@@ -1,5 +1,7 @@
 package edu.kwon.frmk.common.data.jpa.repository.security.auth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import edu.kwon.frmk.common.data.jpa.repository.security.utils.SecurityUtils;
 import edu.kwon.frmk.common.data.jpa.repository.user.User;
 import edu.kwon.frmk.common.data.jpa.repository.user.UserService;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private UserService userService;
@@ -35,6 +40,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public boolean isAuthenticated() {
+		if (SecurityContextHolder.getContext().getAuthentication() == null) return false;
+		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// TODO check user status
 		return principal != null && principal instanceof UserDetails;
@@ -42,17 +49,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public void authenticate(String username, String password) {
+		logger.debug("START: authenticate: " + username);
+		
 		AuthenticationManager authManager = appContext.getBean(AuthenticationManager.class);
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
 		
 		try {
+			logger.debug("SUCCESS: authenticate: " + username);
 			Authentication auth = authManager.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			userService.clearNbFailedLogInAttempt((User) auth.getPrincipal());
+			userService.afterLogIn(SecurityUtils.getCurrentLogInUserName());
 		} catch (BadCredentialsException | UsernameNotFoundException e) {
+			logger.debug("FAILED: authenticate: " + username);
 			userService.increaseNbFailedLogInAttempt(username);
 			throw e;
 		}
 	}
 
+	@Override
+	public void logOut() {
+		logger.debug("Logging out");
+		userService.afterLogOut(SecurityUtils.getCurrentLogInUserName());
+		SecurityContextHolder.clearContext();
+	}
+	
 }

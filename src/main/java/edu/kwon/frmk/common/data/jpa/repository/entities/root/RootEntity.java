@@ -69,7 +69,9 @@ public abstract class RootEntity implements RootEntityField, Serializable {
 	
 	@PrePersist
 	public void prePersist() {
-		setActive(true);
+		if (getActive() == null) {
+			setActive(true);
+		}
 		setBlDelete(false);
 	}
 	

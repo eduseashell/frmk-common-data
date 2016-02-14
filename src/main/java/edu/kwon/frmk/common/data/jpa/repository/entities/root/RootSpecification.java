@@ -40,7 +40,13 @@ public class RootSpecification<T extends RootEntity> implements Specification<T>
 		return cb.and(getPredicate().toArray(new Predicate[getPredicate().size()]));
 	}
 	
-	protected void buildPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) { }
+	protected void buildPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		orderBy(root, query, cb);
+	}
+	
+	protected void orderBy(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		query.orderBy(cb.asc(root.get(RootEntity.ID)));
+	}
 	
 	protected String formatField(String field) {
 		return field == null ? field : "%" + field.toLowerCase() + "%";

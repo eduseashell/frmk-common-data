@@ -26,7 +26,7 @@ public abstract class RootEntityServiceImpl<T extends RootEntity> implements Roo
 	@Override
 	public void delete(T rootEntity) {
 		rootEntity.setBlDelete(true);
-		getDao().delete(rootEntity);
+		update(rootEntity);
 	}
 	
 	@Override
